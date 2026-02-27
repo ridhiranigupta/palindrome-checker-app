@@ -1,18 +1,34 @@
 import java.util.Scanner;
 
 public class PalindroneCheckerApp {
-    public static void main(String[] args){
-                Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
 
-                System.out.print("INPUT TEXT: ");
-                String text = sc.nextLine();
+                // Declare and initialize the input string
+                String input = "radar";
 
-                String reversed = new StringBuilder(text).reverse().toString();
-                boolean isPalindrome = text.equalsIgnoreCase(reversed);
+                // Convert the string into a character array
+                char[] chars = input.toCharArray();
 
-                System.out.println("is it palindron ?: " + isPalindrome);
+                // Initialize pointers
+                int start = 0;
+                int end = chars.length - 1;
 
-                sc.close();
+                // Assume palindrome initially
+                boolean isPalindrome = true;
+
+                // Compare characters until pointers cross
+                while (start < end) {
+                    if (chars[start] != chars[end]) {
+                        isPalindrome = false;
+                        break;
+                    }
+                    start++;
+                    end--;
+                }
+
+                // Output
+                System.out.println("Input : " + input);
+                System.out.println("Is Palindrome? : " + isPalindrome);
             }
         }
 
