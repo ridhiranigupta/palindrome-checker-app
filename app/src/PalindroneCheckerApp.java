@@ -26,7 +26,9 @@ public class PalindroneCheckerApp {
         System.out.println("=== Recursive Palindrome Checker ===");
         System.out.print("Enter a string: ");
 
-        String input = scanner.nextLine();
+        // Convert string to linked list
+        Node head = null;
+        Node tail = null;
 
         boolean result = isPalindrome(input, 0, input.length() - 1);
 
