@@ -2,37 +2,39 @@ import java.util.Scanner;
 
 public class PalindroneCheckerApp {
 
-    // Recursive method to check palindrome
-    public static boolean isPalindrome(String str, int start, int end) {
+    // Method to check palindrome after normalization
+    public static boolean isPalindrome(String str) {
 
-        // Base condition
-        if (start >= end) {
-            return true;
+        // Normalize string: remove spaces and convert to lowercase
+        str = str.replaceAll("\\s+", "").toLowerCase();
+
+        int start = 0;
+        int end = str.length() - 1;
+
+        // Compare characters from both ends
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
         }
 
-        // If characters do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call
-        return isPalindrome(str, start + 1, end - 1);
+        return true;
     }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Recursive Palindrome Checker ===");
+        System.out.println("=== Case-Insensitive & Space-Ignored Palindrome Checker ===");
         System.out.print("Enter a string: ");
 
-        // Convert string to linked list
-        Node head = null;
-        Node tail = null;
+        String input = scanner.nextLine();
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
-
-        if (result) {
+        if (isPalindrome(input)) {
             System.out.println("Result: The string is a Palindrome.");
         } else {
             System.out.println("Result: The string is NOT a Palindrome.");
