@@ -1,36 +1,85 @@
 import java.util.Scanner;
+import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
+
+// Strategy interface
+interface PalindromeStrategy {
+    boolean check(String str);
+}
+
+// Stack-based implementation
+class StackStrategy implements PalindromeStrategy {
+
+    @Override
+    public boolean check(String str) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : str.toCharArray()) {
+            stack.push(c);
+        }
+        for (char c : str.toCharArray()) {
+            if (c != stack.pop()) return false;
+        }
+        return true;
+    }
+}
+
+// Deque-based implementation
+class DequeStrategy implements PalindromeStrategy {
+
+    @Override
+    public boolean check(String str) {
+        Deque<Character> deque = new LinkedList<>();
+        for (char c : str.toCharArray()) {
+            deque.addLast(c);
+        }
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) return false;
+        }
+        return true;
+    }
+}
+
+// Context class
+class PalindromeContext {
+    private PalindromeStrategy strategy;
+
+    public void setStrategy(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public boolean executeStrategy(String str) {
+        return strategy.check(str);
+    }
+}
 
 public class PalindroneCheckerApp {
-
-    // Recursive method to check palindrome
-    public static boolean isPalindrome(String str, int start, int end) {
-
-        // Base condition
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call
-        return isPalindrome(str, start + 1, end - 1);
-    }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        PalindromeContext context = new PalindromeContext();
 
-        System.out.println("=== Recursive Palindrome Checker ===");
+        System.out.println("=== Strategy Pattern Palindrome Checker ===");
         System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        // Convert string to linked list
-        Node head = null;
-        Node tail = null;
+        System.out.println("Choose strategy: 1 = Stack, 2 = Deque");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
+        // Set strategy dynamically
+        switch (choice) {
+            case 1 -> context.setStrategy(new StackStrategy());
+            case 2 -> context.setStrategy(new DequeStrategy());
+            default -> {
+                System.out.println("Invalid choice. Defaulting to Stack strategy.");
+                context.setStrategy(new StackStrategy());
+            }
+        }
+
+        // Execute chosen strategy
+        boolean result = context.executeStrategy(input);
 
         if (result) {
             System.out.println("Result: The string is a Palindrome.");
