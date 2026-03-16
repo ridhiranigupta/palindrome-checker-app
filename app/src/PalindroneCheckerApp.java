@@ -47,6 +47,9 @@ class PalindromeContext {
     public void setStrategy(PalindromeStrategy strategy) {
         this.strategy = strategy;
     }
+}
+
+public class PalindroneCheckerApp {
 
     public boolean executeStrategy(String str) {
         return strategy.check(str);
@@ -81,7 +84,7 @@ public class PalindroneCheckerApp {
         // Execute chosen strategy
         boolean result = context.executeStrategy(input);
 
-        if (result) {
+        if (checker.checkPalindrome(input)) {
             System.out.println("Result: The string is a Palindrome.");
         } else {
             System.out.println("Result: The string is NOT a Palindrome.");
