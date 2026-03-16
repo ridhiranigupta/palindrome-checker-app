@@ -1,37 +1,43 @@
 import java.util.Scanner;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class PalindroneCheckerApp {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
-        Stack<Character> stack = new Stack<>();
+                Deque<Character> deque = new LinkedList<>();
 
-        System.out.println("=== Stack Based Palindrome Checker ===");
-        System.out.print("Enter a string: ");
+                System.out.println("=== Deque Based Palindrome Checker ===");
+                System.out.print("Enter a string: ");
 
-        String input = scanner.nextLine();
+                String input = scanner.nextLine();
 
-        // Push characters into stack
-        for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+                // Insert characters into deque
+                for (int i = 0; i < input.length(); i++) {
+                    deque.addLast(input.charAt(i));
+                }
+
+                boolean isPalindrome = true;
+
+                // Compare front and rear characters
+                while (deque.size() > 1) {
+                    char front = deque.removeFirst();
+                    char rear = deque.removeLast();
+
+                    if (front != rear) {
+                        isPalindrome = false;
+                        break;
+                    }
+                }
+
+                // Print result
+                if (isPalindrome) {
+                    System.out.println("Result: The string is a Palindrome.");
+                } else {
+                    System.out.println("Result: The string is NOT a Palindrome.");
+                }
+
+                scanner.close();
+            }
         }
-
-        // Pop characters to build reversed string
-        String reversed = "";
-
-        while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
-
-        // Check if palindrome
-        if (input.equals(reversed)) {
-            System.out.println("Result: The string is a Palindrome.");
-        } else {
-            System.out.println("Result: The string is NOT a Palindrome.");
-        }
-
-        scanner.close();
-    }
-}
