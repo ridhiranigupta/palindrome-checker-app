@@ -3,7 +3,10 @@ import java.util.Stack;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class PalindroneCheckerApp {
+// Strategy interface
+interface PalindromeStrategy {
+    boolean check(String str);
+}
 
     // Stack-based palindrome
     public static boolean stackPalindrome(String str) {
@@ -27,10 +30,21 @@ public class PalindroneCheckerApp {
         if (str.charAt(start) != str.charAt(end)) return false;
         return recursivePalindrome(str, start + 1, end - 1);
     }
+}
+
+public class PalindroneCheckerApp {
+
+    public boolean executeStrategy(String str) {
+        return strategy.check(str);
+    }
+}
+
+public class PalindroneCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        PalindromeContext context = new PalindromeContext();
 
         System.out.println("=== Palindrome Performance Comparison ===");
         System.out.print("Enter a string: ");
